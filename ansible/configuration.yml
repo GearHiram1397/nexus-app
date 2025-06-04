@@ -6,13 +6,13 @@
 
   pre_tasks:
     - name: Install python for Ansible to work
-      raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+      raw: test -e /usr/bin/python3 || (apt -y update && apt install -y python3)
       changed_when: false
 
   tasks:
     - name: Install Ruby
       apt:
-        name: ruby
+        name: ruby-full
         state: present
         update_cache: yes
 
@@ -24,23 +24,22 @@
 
     - name: Add APT key
       apt_key:
-        id: EA312927
-        keyserver: keyserver.ubuntu.com
+        url: https://pgp.mongodb.com/server-6.0.asc
 
     - name: Add MongoDB repo
       apt_repository:
-        repo: deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse
+        repo: deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/6.0 multiverse
         state: present
 
     - name: Install MongoDB
       apt:
-        name: mongodb
+        name: mongodb-org
         state: present
         update_cache: yes
 
     - name: Start MongoDB
       service:
-        name: mongodb
+        name: mongod
         state: started
         enabled: yes
 

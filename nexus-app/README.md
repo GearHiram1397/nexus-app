@@ -6,6 +6,6 @@ The functionality is simple. The application allows you to share interesting lin
 
 ## Application dependencies
 
-* Ruby v2.3
+* Ruby v3.1
 * Bundler
-* MongoDB v3.2
+* MongoDB v6.0

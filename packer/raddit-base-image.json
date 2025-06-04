@@ -5,10 +5,10 @@
       "project_id": "{{user `project_id`}}",
       "image_name": "nexus-base-{{isotime `20060102-150405`}}",
       "image_family": "nexus-base",
-      "source_image_family": "ubuntu-1604-lts",
+      "source_image_family": "ubuntu-2004-lts",
       "zone": "europe-west1-b",
       "ssh_username": "nexus-user",
-      "machine_type": "g1-small"
+      "machine_type": "e2-medium"
     }
   ],
   "provisioners": [
