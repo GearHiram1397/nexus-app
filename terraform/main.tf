@@ -1,6 +1,6 @@
 resource "google_compute_instance" "nexus" {
   name         = "nexus-instance"
-  machine_type = "g1-small"
+  machine_type = "e2-medium"
   zone         = var.zone
   tags         = ["nexus-app"]
 

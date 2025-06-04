@@ -11,8 +11,8 @@
         force: yes
 
     - name: Install Dependencies
-      bundler:
-        state: present
+      command: bundle install
+      args:
         chdir: /home/nexus-user/nexus
       notify: restart nexus
 

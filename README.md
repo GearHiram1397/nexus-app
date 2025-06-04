@@ -25,8 +25,8 @@ The project uses a microservices architecture with the following components:
 - Terraform
 - Ansible
 - Packer
-- Ruby 2.2.0+
-- MongoDB 3.2+
+- Ruby 3.1+
+- MongoDB 6.0+
 
 ## Project Structure
 
