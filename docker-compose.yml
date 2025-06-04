@@ -1,0 +1,44 @@
+version: "3.3"
+
+# define services (containers) that should be running
+services:
+  mongodb-database:
+    image: mongo:3.2
+    # what volumes to attach to this container
+    volumes:
+      - mongodb_data_container:/data/db
+    # what networks to attach this container
+    networks:
+      - nexus-network
+    ports:
+      - "27017:27017"
+
+  nexus-app:
+    # path to Dockerfile to build an image and start a container
+    build: .
+    environment:
+      - DATABASE_URL=mongodb://mongodb-database:27017/posts
+    ports:
+      - 9292:9292
+    networks:
+      - nexus-network
+    # start nexus-app only after mongod-database service was started
+    depends_on:
+      - mongodb-database
+    command: >
+      bash -c "
+        echo 'Waiting for mongodb-database to be ready...' &&
+        while ! nc -z mongodb-database 27017; do
+          sleep 1
+        done &&
+        echo 'MongoDB is ready!' &&
+        rackup -o 0.0.0.0
+      "
+
+# define volumes to be created
+volumes:
+  mongodb_data_container:
+# define networks to be created
+networks:
+  nexus-network:
+    driver: bridge

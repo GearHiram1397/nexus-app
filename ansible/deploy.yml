@@ -1,0 +1,27 @@
+---
+- name: Deploy Nexus App
+  hosts: nexus-app
+  become: true
+  tasks:
+    - name: Clone Nexus App Repository
+      git:
+        repo: 'https://github.com/GearHiram1397/nexus-app.git'
+        dest: /home/nexus-user/nexus
+        version: master
+        force: yes
+
+    - name: Install Dependencies
+      bundler:
+        state: present
+        chdir: /home/nexus-user/nexus
+      notify: restart nexus
+
+    - name: restart nexus
+      systemd:
+        name: nexus
+        state: restarted
+
+  handlers:
+  - name: restart nexus
+    become: true
+    systemd: name=nexus state=restarted
